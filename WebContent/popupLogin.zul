@@ -1,7 +1,7 @@
 <zk>
 	<hbox height="20px"/>
 	<groupbox width="400px">
-    <h:form id="f" name="f" action="j_spring_security_check" method="POST" xmlns:h="http://www.w3.org/1999/xhtml">
+    <h:form id="f" name="f" action="j_spring_security_check" method="POST" xmlns:h="http://www.zkoss.org/2005/zk/native">
 		<hbox width="100%" widths="50%,50%">
 			<label value="User:"/>
 			<textbox id="u" name="j_username"/>
