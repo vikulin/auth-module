@@ -1,4 +1,5 @@
-Some Manual Tweaking of WTP Internals
+Prior to version 0.0.1 you should do some manual tweaking of WTP Internals:
+
 After updating the source folders you need to do some additional tweaking for better integration. Open the project in navigator view and edit the file .settings/org.eclipse.wst.common.component. If required open the source tab in the editor and do the following:
 
     * Replace /WebContent with /src/main/webapp.
@@ -30,3 +31,5 @@ Figure 4. J2EE Module Dependencies: Link the maven2 dependencies with the J2EE M
 Remember to save the changes when done.
 
 Carefully move the folders META-INF and WEB-INF under /WebContent to src/main/webapp. In the navigator view, delete the folders WebContent and build
+
+Current version does not require such modifications and WebContent folder is processed normally.  
