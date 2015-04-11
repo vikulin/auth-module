@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="2.5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" >
   <display-name>flashstore</display-name>
+  	<!--
+	  - Loads the root application context of this web app at startup.
+	  - The application context is then available via
+	  - WebApplicationContextUtils.getWebApplicationContext(servletContext).
+    -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
   <listener>
   	<description>
   		Used to cleanup when a session is destroyed</description>
@@ -61,8 +69,7 @@
 			classpath:applicationContext-business.xml
 			/WEB-INF/applicationContext-security.xml
 		</param-value>
-	</context-param>
- 
+	</context-param>    
     <context-param>
         <param-name>log4jConfigLocation</param-name>
         <param-value>/WEB-INF/classes/log4j.xml</param-value>
@@ -78,15 +85,8 @@
       <url-pattern>/*</url-pattern>
     </filter-mapping>
 
-	<!--
-	  - Loads the root application context of this web app at startup.
-	  - The application context is then available via
-	  - WebApplicationContextUtils.getWebApplicationContext(servletContext).
-    -->
-	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	</listener>
 
+	
 	<!--
 	  - Publishes events for session creation and destruction through the application
 	  - context. Optional unless concurrent session control is being used.
@@ -98,6 +98,6 @@
     <listener>
         <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
     </listener>  
-    
+  
 
 </web-app>

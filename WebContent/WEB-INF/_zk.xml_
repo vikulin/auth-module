@@ -38,13 +38,17 @@
 		<name>org.zkoss.zul.theme.fontSizeXS</name>
 		<value>14px</value>
 	</library-property>
-	<system-config>
+	<!-- system-config>
 		<disable-event-thread>false</disable-event-thread>
 		<max-upload-size>-1</max-upload-size>
-	</system-config>
+	</system-config-->
 	<session-config>
-
 		<session-timeout>1000000</session-timeout>
 		<timer-keep-alive>false</timer-keep-alive>
 	</session-config>
+
+	<system-config>
+	    <disable-event-thread>true</disable-event-thread>
+	</system-config>
+
 </zk>
