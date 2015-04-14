@@ -63,8 +63,6 @@
 		<priority value="INFO" />
 	</category>
 
-
-
 	<root>
 		<level value="ALL" />
 		<appender-ref ref="STDOUT" />

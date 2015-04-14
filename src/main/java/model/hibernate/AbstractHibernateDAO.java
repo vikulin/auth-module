@@ -37,7 +37,7 @@ public abstract class AbstractHibernateDAO<T, ID extends Serializable> implement
 	}
 
 	protected Session getSession() {
-		if (session == null)
+		if (session == null || !session.isConnected())
            session = HibernateUtil.getSessionFactory().getCurrentSession();
        return session;
     }
