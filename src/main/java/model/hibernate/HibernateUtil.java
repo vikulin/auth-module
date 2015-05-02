@@ -1,7 +1,9 @@
 package model.hibernate;
 
 import org.hibernate.SessionFactory;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.service.ServiceRegistry;
 
 /**
  * Generated at Thu Mar 22 14:32:50 EET 2012
@@ -11,18 +13,16 @@ import org.hibernate.cfg.Configuration;
 public final class HibernateUtil {
 
 	private static SessionFactory sessionFactory;
+	private static ServiceRegistry serviceRegistry;
 
 	static {
 		try {
-			sessionFactory = new Configuration().configure().buildSessionFactory();		
+			Configuration configuration = new Configuration().configure();
+			serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
+			sessionFactory = configuration.buildSessionFactory(serviceRegistry);		
 		} catch (Throwable ex) {
-
 			throw new ExceptionInInitializerError(ex);
 		}
-	}
-
-	private HibernateUtil() {
-
 	}
 
 	/**
