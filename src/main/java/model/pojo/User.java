@@ -6,13 +6,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import model.hibernate.HibernateUtil;
 import model.hibernate.UserRoleHibernateDAO;
 
 import org.hibernate.Session;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.GrantedAuthorityImpl;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.zkoss.zkplus.hibernate.HibernateUtil;
+
 
 /**
  * <p>Pojo mapping TABLE user</p>
@@ -133,7 +134,7 @@ public class User implements Serializable, UserDetails {
 	public Collection<GrantedAuthority> getAuthorities() {
 		List<GrantedAuthority> list = new ArrayList<GrantedAuthority>();
 		UserRoleHibernateDAO userRoleDao = new UserRoleHibernateDAO();
-		Session session = HibernateUtil.currentSession();
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		userRoleDao.setSession(session);
 		session.beginTransaction();
 		userRoles = userRoleDao.findByUserId(id);

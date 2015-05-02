@@ -1,6 +1,7 @@
 package model.hibernate;
 
 import java.sql.Timestamp;
+import java.util.Collection;
 import java.util.List;
 
 import model.UserDAO;
@@ -12,7 +13,6 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.zkoss.zkplus.hibernate.HibernateUtil;
 
 /**
  * <p>Hibernate DAO layer for Users</p>
@@ -52,15 +52,15 @@ public class UserHibernateDAO extends
 	
 	public UserDetails loadUserByUsername(String userName)
 			throws UsernameNotFoundException, DataAccessException {
-		Session session = HibernateUtil.currentSession();
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
 		setSession(session);
-		List<User> results = findByLoginWithRole(userName);
+		Collection<User> results = findByLoginWithRole(userName);
 		session.getTransaction().commit();
 		if(results.size() == 0) {
             throw new UsernameNotFoundException(userName + "not found");
 		}
-		return (UserDetails) results.get(0);
+		return (UserDetails) results.iterator().next();
 	}
 	
 
