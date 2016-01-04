@@ -11,7 +11,7 @@ import model.hibernate.UserRoleHibernateDAO;
 
 import org.hibernate.Session;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.GrantedAuthorityImpl;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 
@@ -139,7 +139,7 @@ public class User implements Serializable, UserDetails {
 		session.beginTransaction();
 		userRoles = userRoleDao.findByUserId(id);
 		for (UserRole userRole:userRoles){
-			list.add(new GrantedAuthorityImpl(userRole.getRole().getName()));
+			list.add(new SimpleGrantedAuthority(userRole.getRole().getName()));
 		}
 		session.getTransaction().commit();
 		return list;

@@ -6,8 +6,10 @@
 	<version>1.2.0-FINAL</version>
 	<packaging>war</packaging>
 	<properties>
-		<zk-version>7.0.3</zk-version>
+		<zk-version>8.0.0</zk-version>
 		<spring-version>3.1.2.RELEASE</spring-version>
+		<zkspring-security>3.2.0</zkspring-security>
+		<hibernate-version>4.3.8.Final</hibernate-version>
 	</properties>
 	<repositories>
 		<repository>
@@ -49,7 +51,7 @@
 		<dependency>
 			<groupId>org.zkoss.zk</groupId>
 			<artifactId>zkspring-security</artifactId>
-			<version>3.1.1</version>
+			<version>${zkspring-security}</version>
 			<exclusions>
 				<exclusion>
 					<groupId>ch.qos.logback</groupId>
@@ -155,12 +157,12 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
-			<version>4.3.8.Final</version>
+			<version>${hibernate-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-hikaricp</artifactId>
-			<version>4.3.8.Final</version>
+			<version>${hibernate-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>log4j</groupId>
