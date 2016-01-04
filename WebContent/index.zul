@@ -1,8 +1,6 @@
 <?page title="Loading ..."?>
 <window title="Loading ..." border="normal" width="200px">
-
 	<zscript>
-	Executions.sendRedirect("/user/admin/admin.html");
+		Executions.sendRedirect("/user/admin/admin.html");
 	</zscript>
-	
 </window>
