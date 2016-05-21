@@ -6,7 +6,7 @@
 	<version>1.2.0-FINAL</version>
 	<packaging>war</packaging>
 	<properties>
-		<zk-version>8.0.0</zk-version>
+		<zk-version>8.0.1</zk-version>
 		<spring-version>3.1.2.RELEASE</spring-version>
 		<zkspring-security>3.2.0</zkspring-security>
 		<hibernate-version>4.3.8.Final</hibernate-version>
