@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+	Created by ZK Studio
+-->
+
 <zk>
 	<device-config>
 		<device-type>ajax</device-type>
-		<timeout-uri></timeout-uri><!-- An empty URL can cause the browser to reload 
-			the same URL -->
+		<timeout-uri></timeout-uri><!-- An empty URL can cause the browser to reload the same URL -->
 	</device-config>
 
 	<listener>
@@ -13,7 +17,7 @@
 		</listener -->
 	<listener>
 		<description>Hibernate "Open Session In View" Session Lifecycle</description>
-		<listener-class>org.zkoss.zkplus.hibernate.OpenSessionInViewListener</listener-class>
+		<listener-class>listener.OpenSessionInViewListener</listener-class>
 	</listener>
 	<listener>
 		<description>Hibernate SessionFactory Lifecycle</description>
@@ -50,5 +54,5 @@
 	<system-config>
 	    <disable-event-thread>true</disable-event-thread>
 	</system-config>
-
+    
 </zk>

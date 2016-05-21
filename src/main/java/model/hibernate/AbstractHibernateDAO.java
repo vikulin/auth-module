@@ -161,7 +161,7 @@ public abstract class AbstractHibernateDAO<T, ID extends Serializable> implement
         return crit.list();
     }
     
-	protected List<T> findByCriteriaWith(Object... criterion) {
+	public List<T> findByCriteriaWith(Object... criterion) {
         Criteria crit = getSession().createCriteria(getPersistentClass());
         for (Object c : criterion) {
         	if (c instanceof Criterion)

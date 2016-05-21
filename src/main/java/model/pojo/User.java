@@ -1,10 +1,8 @@
 package model.pojo;
 
-import java.io.Serializable;
-import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import model.hibernate.HibernateUtil;
 import model.hibernate.UserRoleHibernateDAO;
@@ -14,7 +12,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-
 /**
  * <p>Pojo mapping TABLE user</p>
  * <p></p>
@@ -23,128 +20,32 @@ import org.springframework.security.core.userdetails.UserDetails;
  * @author Salto-db Generator v1.0.16 / Hibernate pojos and xml mapping files.
  * 
  */
-public class User implements Serializable, UserDetails {
+public class User implements UserDetails {
 
 	private static final long serialVersionUID = 1L;
-
-	/**
-	 * Attribute id.
-	 */
 	private Long id;
-	
-	/**
-	 * Attribute username.
-	 */
 	private String username;
-	
-	/**
-	 * Attribute password.
-	 */
 	private String password;
-	
-	/**
-	 * Attribute createDate.
-	 */
-	private Timestamp createDate;
-	
-	/**
-	 * List of UserRole
-	 */
-	private List<UserRole> userRoles = null;
 
-	
-	/**
-	 * <p> 
-	 * </p>
-	 * @return id
-	 */
-	public Long getId() {
-		return id;
+	public User(UserPojo userPojo) {
+		this.id = userPojo.getId();
+		this.username = userPojo.getUsername();
+		this.password = userPojo.getPassword();
 	}
-
-	/**
-	 * @param id new value for id 
-	 */
-	public void setId(Long id) {
-		this.id = id;
-	}
-	
-	/**
-	 * <p> 
-	 * </p>
-	 * @return username
-	 */
-	public String getUsername() {
-		return username;
-	}
-
-	/**
-	 * @param username new value for username 
-	 */
-	public void setUsername(String username) {
-		this.username = username;
-	}
-	
-	/**
-	 * <p> 
-	 * </p>
-	 * @return password
-	 */
-	public String getPassword() {
-		return password;
-	}
-
-	/**
-	 * @param password new value for password 
-	 */
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	
-	/**
-	 * <p> 
-	 * </p>
-	 * @return createDate
-	 */
-	public Timestamp getCreateDate() {
-		return createDate;
-	}
-
-	/**
-	 * @param createDate new value for createDate 
-	 */
-	public void setCreateDate(Timestamp createDate) {
-		this.createDate = createDate;
-	}
-	
-	/**
-	 * Get the list of UserRole
-	 */
-	 public List<UserRole> getUserRoles() {
-	 	return this.userRoles;
-	 }
-	 
-	/**
-	 * Set the list of UserRole
-	 */
-	 public void setUserRoles(List<UserRole> userRoles) {
-	 	this.userRoles = userRoles;
-	 }
 
 	public Collection<GrantedAuthority> getAuthorities() {
-		List<GrantedAuthority> list = new ArrayList<GrantedAuthority>();
+		Set<GrantedAuthority> list = new HashSet<GrantedAuthority>();
 		UserRoleHibernateDAO userRoleDao = new UserRoleHibernateDAO();
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		userRoleDao.setSession(session);
 		session.beginTransaction();
-		userRoles = userRoleDao.findByUserId(id);
+		Set<UserRole> userRoles = new HashSet<UserRole>(userRoleDao.findByUserId(id));
 		for (UserRole userRole:userRoles){
 			list.add(new SimpleGrantedAuthority(userRole.getRole().getName()));
 		}
 		session.getTransaction().commit();
 		return list;
 	}
-
 	public boolean isAccountNonExpired() {
 		return true;
 	}
@@ -159,5 +60,13 @@ public class User implements Serializable, UserDetails {
 
 	public boolean isEnabled() {
 		return true;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public String getUsername() {
+		return username;
 	}
 }

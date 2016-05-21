@@ -2,6 +2,8 @@ package model.pojo;
 
 import java.io.Serializable;
 
+import model.pojo.interfaces.Pojo;
+
 
 /**
  * <p>Pojo mapping TABLE user_role</p>
@@ -11,7 +13,7 @@ import java.io.Serializable;
  * @author Salto-db Generator v1.0.16 / Hibernate pojos and xml mapping files.
  * 
  */
-public class UserRole implements Serializable {
+public class UserRole implements Serializable, Pojo {
 
 	/**
 	 * Attribute id.
@@ -21,7 +23,7 @@ public class UserRole implements Serializable {
 	/**
 	 * Attribute user
 	 */
-	 private User user;	
+	 private UserPojo user;	
 
 	/**
 	 * Attribute role
@@ -48,14 +50,14 @@ public class UserRole implements Serializable {
 	/**
 	 * get user
 	 */
-	public User getUser() {
+	public UserPojo getUser() {
 		return this.user;
 	}
 	
 	/**
 	 * set user
 	 */
-	public void setUser(User user) {
+	public void setUser(UserPojo user) {
 		this.user = user;
 	}
 

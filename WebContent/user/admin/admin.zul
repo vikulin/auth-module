@@ -1,0 +1,72 @@
+<?page title="Страница управления" contentType="text/html;charset=UTF-8"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+<zk>
+	<div align="right" width="1200px">
+		<separator/>
+			<hbox>${authentication.principal.username}
+				<button label="Выход"
+					disabled="${empty execution.userPrincipal}"
+					href="/j_spring_security_logout" />
+			</hbox>
+		<separator/>
+	</div>
+	<hlayout>
+		<window title="Пользователи" border="normal" id="users"
+			apply="controller.UserSearchController" width="600px">
+			<hbox align="center">
+				Логин:
+				<textbox id="username" />
+				<button id="searchButton" label="Искать" />
+				<button id="createButton" label="Создать" />
+			</hbox>
+			<listbox id="listbox" emptyMessage="Нет результатов"
+				height="160px" style="margin-top:10px">
+				<listhead>
+					<listheader label="Логин" width="80%"/>
+					<listheader label="" width="10%"/>
+					<listheader label="" width="10%"/>
+				</listhead>
+				<template name="model">
+					<listitem>
+						<listcell label="${each.username}"></listcell>
+						<listcell value="${each}">
+							<button id="adm_edit_${self.uuid}"
+								label="...">
+								<attribute name="onClick"><![CDATA[
+								users.getAttribute("users$UserSearchController").openWindow("./user.zul",
+										self.parent.value);
+							]]></attribute>
+							</button>
+						</listcell>
+						<listcell value="${each}">
+							<button id="adm_del_${self.uuid}" label="x">
+								<attribute name="onClick"><![CDATA[
+								users.getAttribute("users$UserSearchController").openWindow("./delete.zul",
+										self.parent.value);
+							]]></attribute>
+							</button>
+						</listcell>
+					</listitem>
+				</template>
+			</listbox>
+			<hbox style="margin-top:20px" id="detailBox"
+				visible="true">
+				<vbox>
+					<hlayout>
+						Логин :
+						<label id="usernameLabel"
+							style="font-weight:bold" />
+					</hlayout>
+					<hlayout>
+						Дата создания :
+						<label id="createDate" style="font-weight:bold" />
+					</hlayout>
+					<hlayout>
+						Роль :
+						<label id="role" style="font-weight:bold" />
+					</hlayout>
+				</vbox>
+			</hbox>
+		</window>
+		</hlayout>
+</zk>

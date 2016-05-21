@@ -16,6 +16,11 @@ import java.sql.Timestamp;
 public class Role implements Serializable {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8806343924433119573L;
+
+	/**
 	 * Attribute id.
 	 */
 	private Long id;

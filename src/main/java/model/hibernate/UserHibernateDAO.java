@@ -2,10 +2,10 @@ package model.hibernate;
 
 import java.sql.Timestamp;
 import java.util.Collection;
-import java.util.List;
 
 import model.UserDAO;
 import model.pojo.User;
+import model.pojo.UserPojo;
 
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
@@ -22,31 +22,31 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
  * @see http://www.hibernate.org/328.html
  */
 public class UserHibernateDAO extends
-		AbstractHibernateDAO<User, Long> implements
+		GenericHibernateDAO<UserPojo, Long> implements
 		UserDAO, UserDetailsService {
 
 	/**
 	 * Find User by username
 	 */
-	public List<User> findByUsername(String username) {
+	public Collection<UserPojo> findByUsername(String username) {
 		return findByCriteria(Restrictions.eq("username", username));
 	}
 	
 	/**
 	 * Find User by password
 	 */
-	public List<User> findByPassword(String password) {
+	public Collection<UserPojo> findByPassword(String password) {
 		return findByCriteria(Restrictions.eq("password", password));
 	}
 	
 	/**
 	 * Find User by createDate
 	 */
-	public List<User> findByCreateDate(Timestamp createDate) {
+	public Collection<UserPojo> findByCreateDate(Timestamp createDate) {
 		return findByCriteria(Restrictions.eq("createDate", createDate));
 	}
 	
-	public List<User> findByLoginWithRole(String login) {
+	public Collection<UserPojo> findByLoginWithRole(String login) {
 		return findByCriteriaWith(Restrictions.eq("username", login), "username");
 	}
 	
@@ -55,12 +55,13 @@ public class UserHibernateDAO extends
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
 		setSession(session);
-		Collection<User> results = findByLoginWithRole(userName);
+		Collection<UserPojo> results = findByLoginWithRole(userName);
 		session.getTransaction().commit();
 		if(results.size() == 0) {
             throw new UsernameNotFoundException(userName + "not found");
 		}
-		return (UserDetails) results.iterator().next();
+		UserPojo userPojo = results.iterator().next();
+		return (UserDetails)(new User(userPojo));
 	}
 	
 

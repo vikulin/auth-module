@@ -1,0 +1,33 @@
+<window title="Пользователь" border="normal" id="userWin"
+	apply="controller.ModifyUserController" width="300px" closable="true">
+	<groupbox apply="org.zkoss.bind.BindComposer" 
+		viewModel="@id('vmUser') @init('viewmodel.UserViewModel')">
+		<hbox width="100%" widths="50%,50%">
+			<label value="Логин:" />
+			<textbox id="username" value="${arg.object.username}" constraint="no empty"/>
+		</hbox>
+		<separator />
+		<hbox width="100%" widths="50%,50%">
+			<label value="Пароль:" />
+			<textbox id="password" value="${arg.object.password}" type="password" constraint="no empty"/>
+		</hbox>
+		<separator />
+		<hbox width="100%" widths="50%,50%">
+			<label value="Роль:" />
+			<combobox id="role" width="162px" model="@load(vmUser.roles)" selectedItem="@bind(vmUser.role)"
+			value="@load(arg.object.userRoles.iterator().next().role.name)">
+				<template name="model">
+					<comboitem label="@load(each.name)" value="@load(each)"/>
+				</template>
+			</combobox>
+		</hbox>
+		<separator />
+		<hbox width="100%" widths="20%,25%,10%,25%,20%">
+			<span />
+			<button id="saveButton" label="Сохранить" />
+			<span />
+			<button id="closeButton" label="Отмена" />
+			<span />
+		</hbox>
+	</groupbox>
+</window>
