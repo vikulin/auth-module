@@ -1,5 +1,5 @@
 <window title="Пользователь" border="normal" id="userWin"
-	apply="controller.ModifyUserController" width="300px" closable="true">
+	apply="controller.ModifyUserController" width="600px" closable="true">
 	<groupbox apply="org.zkoss.bind.BindComposer" 
 		viewModel="@id('vmUser') @init('viewmodel.UserViewModel')">
 		<hbox width="100%" widths="50%,50%">

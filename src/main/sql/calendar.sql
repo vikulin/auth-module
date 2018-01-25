@@ -55,14 +55,14 @@ INSERT INTO `user` VALUES ('2', 'user', 'd41d8cd98f00b204e9800998ecf8427e', '201
 -- ----------------------------
 DROP TABLE IF EXISTS `user_role`;
 CREATE TABLE `user_role` (
-  `ID` bigint(11) NOT NULL,
+  `ID` bigint(11) NOT NULL AUTO_INCREMENT,
   `USER_ID` bigint(11) NOT NULL,
   `ROLE_ID` bigint(11) NOT NULL,
   KEY `ROLE_FK` (`ROLE_ID`),
   KEY `USER_FK` (`USER_ID`),
   CONSTRAINT `USER_FK` FOREIGN KEY (`USER_ID`) REFERENCES `user` (`ID`),
   CONSTRAINT `ROLE_FK` FOREIGN KEY (`ROLE_ID`) REFERENCES `role` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user_role

@@ -22,9 +22,9 @@
 			<listbox id="listbox" emptyMessage="Нет результатов"
 				height="160px" style="margin-top:10px">
 				<listhead>
-					<listheader label="Логин" width="80%"/>
-					<listheader label="" width="10%"/>
-					<listheader label="" width="10%"/>
+					<listheader label="Логин" width="60%"/>
+					<listheader label="" width="20%"/>
+					<listheader label="" width="20%"/>
 				</listhead>
 				<template name="model">
 					<listitem>

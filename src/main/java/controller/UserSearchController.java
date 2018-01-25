@@ -9,6 +9,7 @@ import model.hibernate.UserHibernateDAO;
 import model.hibernate.UserRoleHibernateDAO;
 import model.pojo.UserPojo;
 
+import org.springframework.security.access.annotation.Secured;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
@@ -43,6 +44,7 @@ public class UserSearchController extends PojoListboxController {
 	}
 
     @Listen("onClick = #searchButton")
+    @Secured({"ROLE_USER"})
     public void search(){
         String username = this.username.getValue();
         Collection<UserPojo> result = null;
@@ -55,6 +57,7 @@ public class UserSearchController extends PojoListboxController {
     }
      
     @Listen("onSelect = #listbox")
+    @Secured({"ROLE_USER"})
     public void showUserDetail(){
         Set<UserPojo> selection = ((Selectable<UserPojo>)listbox.getModel()).getSelection();
         if (selection!=null && !selection.isEmpty()){
@@ -73,6 +76,7 @@ public class UserSearchController extends PojoListboxController {
      * Modify part
      */
     @Listen("onClick = #createButton")
+    @Secured({"ROLE_EDITOR"})
     public void create(){
     	UserPojo user = new UserPojo();
     	String page = "./user.zul";

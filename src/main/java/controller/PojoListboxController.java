@@ -2,6 +2,7 @@ package controller;
 
 import model.pojo.interfaces.Pojo;
 
+import org.springframework.security.access.annotation.Secured;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Window;
@@ -33,6 +34,7 @@ public abstract class PojoListboxController extends AbstractController {
 		}
 	}
 
+	@Secured({"ROLE_ADMIN"})
 	public void delete(Object obj) {
 		Pojo contact = (Pojo)obj;
 		ListModelList<Pojo> model = (ListModelList)getListbox().getModel();
@@ -49,6 +51,7 @@ public abstract class PojoListboxController extends AbstractController {
 	
 	protected abstract Listbox getListbox();
 	
+	@Secured({"ROLE_USER"})
 	public abstract void search();
 
 }
