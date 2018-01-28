@@ -1,0 +1,18 @@
+<zk>
+    <zscript><![CDATA[
+    	java.lang.Throwable throwable = requestScope.get("javax.servlet.error.exception");
+    	org.zkoss.util.logging.Log.lookup("Fatal").error(throwable);
+	    while (throwable != null && !(throwable instanceof java.sql.SQLException)) {
+	        throwable = throwable.getCause();
+	    }
+	    if (throwable instanceof java.sql.SQLException) {
+	        java.sql.SQLException sqlex = (java.sql.SQLException) throwable;
+	        int errorCode = sqlex.getErrorCode();
+	        if(errorCode==1061){
+	        	Messagebox.show("Такой объект уже существует!", "Ошибка", Messagebox.OK, Messagebox.ERROR);
+	        	return;
+	        }
+	    }
+	    Messagebox.show(throwable.getMessage(), "Ошибка", Messagebox.OK, Messagebox.ERROR);
+	    ]]></zscript>
+</zk>
