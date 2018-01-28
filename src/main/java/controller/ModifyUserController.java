@@ -43,7 +43,7 @@ public class ModifyUserController extends AbstractController {
     
     @Listen("onClick = #saveButton")
     @Secured({"ROLE_ADMIN"})
-    protected void save() throws Exception {
+    public void save() throws Exception {
     	user = (UserPojo)super.getObject();
     	user.setUsername(username.getValue());
     	byte[] bytesOfPassword = password.getValue().getBytes();
