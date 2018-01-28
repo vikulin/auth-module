@@ -14,12 +14,14 @@ import model.pojo.UserPojo;
 import model.pojo.UserRole;
 
 import org.apache.commons.codec.binary.Hex;
+import org.springframework.security.access.annotation.Secured;
+import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
 
-public class ModifyUserController extends AbstractModifyController {
+public class ModifyUserController extends AbstractController {
 
 	private static final long serialVersionUID = 1L;
 	private UserDAO userDAO;
@@ -39,6 +41,8 @@ public class ModifyUserController extends AbstractModifyController {
 	
 	private UserPojo user;
     
+    @Listen("onClick = #saveButton")
+    @Secured({"ROLE_ADMIN"})
     protected void save() throws Exception {
     	user = (UserPojo)super.getObject();
     	user.setUsername(username.getValue());
