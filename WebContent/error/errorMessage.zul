@@ -8,7 +8,7 @@
 	    if (throwable instanceof java.sql.SQLException) {
 	        java.sql.SQLException sqlex = (java.sql.SQLException) throwable;
 	        int errorCode = sqlex.getErrorCode();
-	        if(errorCode==1061){
+	        if(errorCode==1062){
 	        	Messagebox.show("Такой объект уже существует!", "Ошибка", Messagebox.OK, Messagebox.ERROR);
 	        	return;
 	        }
