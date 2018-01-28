@@ -16,6 +16,9 @@
 			<label value="Роль:" />
 			<combobox id="role" width="162px" model="@load(vmUser.roles)" selectedItem="@bind(vmUser.role)"
 			value="@load(arg.object.userRoles.iterator().next().role.name)">
+				<attribute name="onCreate">
+		            self.setConstraint("no empty");
+		        </attribute>
 				<template name="model">
 					<comboitem label="@load(each.name)" value="@load(each)"/>
 				</template>

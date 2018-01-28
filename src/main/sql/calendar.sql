@@ -41,8 +41,9 @@ CREATE TABLE `user` (
   `USERNAME` varchar(15) NOT NULL,
   `PASSWORD` varchar(255) NOT NULL,
   `CREATE_DATE` datetime NOT NULL,
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `USERNAME_UNIQUE` (`USERNAME`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user
