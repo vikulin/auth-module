@@ -26,7 +26,7 @@
 		<logout logout-success-url="/index.zul" invalidate-session="true" />
 	</http>
 	
-	<beans:bean id="passwordEncoder" class="authentication.CustomPasswordEncoder"/>
+	<beans:bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 
 	<!-- Custom Authentication Manager -->
 	<authentication-manager>

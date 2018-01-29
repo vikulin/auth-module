@@ -13,13 +13,12 @@ import model.pojo.UserPojo;
 import model.pojo.UserRole;
 
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
-
-import authentication.CustomPasswordEncoder;
 
 public class ModifyUserController extends AbstractController {
 
@@ -46,7 +45,7 @@ public class ModifyUserController extends AbstractController {
     public void save() throws Exception {
     	user = (UserPojo)super.getObject();
     	user.setUsername(username.getValue());
-    	final String result = new CustomPasswordEncoder().encode(password.getValue());
+    	final String result = new BCryptPasswordEncoder().encode(password.getValue());
     	user.setPassword(result);
     	UserRole userRole = null;
     	if (user.getId()==null){
