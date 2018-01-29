@@ -23,15 +23,16 @@
 		<form-login login-page="/login.zul"
 			authentication-failure-url="/login.zul?login_error=1" />
 		<access-denied-handler error-page="/error/403.zul" />
-
-
 		<logout logout-success-url="/index.zul" invalidate-session="true" />
 	</http>
+	
+	<beans:bean id="passwordEncoder" class="authentication.CustomPasswordEncoder"/>
 
 	<!-- Custom Authentication Manager -->
 	<authentication-manager>
 		<authentication-provider user-service-ref="userDetailsService">
-			<password-encoder hash="md5" />
+			<!-- password-encoder hash="md5" /-->
+			<password-encoder ref="passwordEncoder" />
 		</authentication-provider>
 	</authentication-manager>
 

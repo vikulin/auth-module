@@ -1,6 +1,5 @@
 package controller;
 
-import java.security.MessageDigest;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashSet;
@@ -13,13 +12,14 @@ import model.pojo.Role;
 import model.pojo.UserPojo;
 import model.pojo.UserRole;
 
-import org.apache.commons.codec.binary.Hex;
 import org.springframework.security.access.annotation.Secured;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
+
+import authentication.CustomPasswordEncoder;
 
 public class ModifyUserController extends AbstractController {
 
@@ -46,10 +46,7 @@ public class ModifyUserController extends AbstractController {
     public void save() throws Exception {
     	user = (UserPojo)super.getObject();
     	user.setUsername(username.getValue());
-    	byte[] bytesOfPassword = password.getValue().getBytes("UTF-8");
-    	MessageDigest md = MessageDigest.getInstance("MD5");
-    	byte[] digest = md.digest(bytesOfPassword);
-    	final String result = new String(Hex.encodeHex(digest));
+    	final String result = new CustomPasswordEncoder().encode(password.getValue());
     	user.setPassword(result);
     	UserRole userRole = null;
     	if (user.getId()==null){
