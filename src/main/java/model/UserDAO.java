@@ -18,13 +18,6 @@ import model.pojo.UserPojo;
  */
 public interface UserDAO extends GenericDAO<UserPojo, Long> {
 
-	/*
-	 * TODO : Add specific businesses daos here. These methods will be
-	 * overwrited if you re-generate this interface. You might want to extend
-	 * this interface and to change the dao factory to return an instance of the
-	 * new implemenation in buildUserDAO()
-	 */
-
 	/**
 	 * Find User by username
 	 */
