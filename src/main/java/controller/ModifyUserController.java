@@ -46,7 +46,7 @@ public class ModifyUserController extends AbstractController {
     public void save() throws Exception {
     	user = (UserPojo)super.getObject();
     	user.setUsername(username.getValue());
-    	byte[] bytesOfPassword = password.getValue().getBytes();
+    	byte[] bytesOfPassword = password.getValue().getBytes("UTF-8");
     	MessageDigest md = MessageDigest.getInstance("MD5");
     	byte[] digest = md.digest(bytesOfPassword);
     	final String result = new String(Hex.encodeHex(digest));
