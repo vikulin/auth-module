@@ -61,9 +61,10 @@ CREATE TABLE `user_role` (
   `ROLE_ID` bigint(11) NOT NULL,
   KEY `ROLE_FK` (`ROLE_ID`),
   KEY `USER_FK` (`USER_ID`),
+  PRIMARY KEY (`ID`),
   CONSTRAINT `USER_FK` FOREIGN KEY (`USER_ID`) REFERENCES `user` (`ID`),
   CONSTRAINT `ROLE_FK` FOREIGN KEY (`ROLE_ID`) REFERENCES `role` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user_role
