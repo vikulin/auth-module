@@ -9,7 +9,6 @@ import model.pojo.UserPojo;
 
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -51,7 +50,7 @@ public class UserHibernateDAO extends
 	}
 	
 	public UserDetails loadUserByUsername(String userName)
-			throws UsernameNotFoundException, DataAccessException {
+			throws UsernameNotFoundException {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
 		setSession(session);

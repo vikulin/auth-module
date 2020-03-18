@@ -3,27 +3,34 @@
 <!-- - Sample namespace-based configuration - - $Id: applicationContext-security.xml,v 
 	1.1 2010-11-10 08:23:12 vadym Exp $ -->
 
-<beans:beans xmlns="http://www.springframework.org/schema/security" 
-	xmlns:beans="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation=
-	"http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-	 http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
-	 http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+    xmlns:beans="http://www.springframework.org/schema/beans" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/security
+    http://www.springframework.org/schema/security/spring-security.xsd">
 	<!-- - Enable the @Secured annotation to secure service layer methods -->
 	<global-method-security secured-annotations="enabled"/>
 
 	<!-- - Secure the page per the URL pattern -->
-	<http auto-config="true">
-		<intercept-url pattern="/user/admin/**" access="ROLE_ADMIN" />
-		<intercept-url pattern="/user/**" access="IS_AUTHENTICATED_REMEMBERED" />
-		<intercept-url pattern="/**" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+	<http disable-url-rewriting="false" use-expressions="true">
+	
+		<csrf disabled="true"/>
+		
+		<intercept-url pattern="/user/admin/**" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/user/**" access="hasRole('ROLE_USER')" />
+		<intercept-url pattern="/**" access="permitAll" />
 		<!-- use own login page rather than the default one -->
+		
 		<form-login login-page="/login.zul"
-			authentication-failure-url="/login.zul?login_error=1" />
+					username-parameter="j_username" 
+					password-parameter="j_password" 
+					login-processing-url="/j_spring_security_check" 
+					authentication-failure-url="/login.zul?login_error=1" 
+		/>
 		<access-denied-handler error-page="/error/403.zul" />
-		<logout logout-success-url="/index.zul" invalidate-session="true" />
+		<logout logout-url="/j_spring_security_logout" logout-success-url="/index.zul" invalidate-session="true" />
 	</http>
 	
 	<beans:bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
