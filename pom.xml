@@ -7,7 +7,7 @@
 	<packaging>war</packaging>
 	<properties>
 		<zk.version>8.5.0</zk.version>
-		<springsecurity.version>4.0.0.RELEASE</springsecurity.version>
+		<springsecurity.version>5.2.10.RELEASE</springsecurity.version>
 		<hibernate-version>5.3.20.Final</hibernate-version>
 	</properties>
 <repositories>
