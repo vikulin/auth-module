@@ -48,8 +48,8 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', 'admin', '$2a$12$LxuW4C5TTPer.3N6hN8ByejhzaskDfhOv7VQ2im0EDJoYhtDcmzFO', '2012-03-22 19:51:44');
-INSERT INTO `user` VALUES ('2', 'user', '$2a$12$LxuW4C5TTPer.3N6hN8ByejhzaskDfhOv7VQ2im0EDJoYhtDcmzFO', '2012-03-22 20:39:07');
+INSERT INTO `user` VALUES ('1', 'admin', '$2a$10$MIu08ioyhEEfFNogmvgplu0JILl90RqJYPBLnZ6Xxcp4ZsJ/ueDKW', '2012-03-22 19:51:44');
+INSERT INTO `user` VALUES ('2', 'user', '$2a$10$MIu08ioyhEEfFNogmvgplu0JILl90RqJYPBLnZ6Xxcp4ZsJ/ueDKW', '2012-03-22 20:39:07');
 
 -- ----------------------------
 -- Table structure for `user_role`
