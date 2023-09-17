@@ -4,7 +4,8 @@ import java.util.List;
 
 import model.hibernate.HibernateUtil;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hibernate.Transaction;
 import org.zkoss.zk.ui.Execution;
 import org.zkoss.zk.ui.util.ExecutionCleanup;
@@ -12,7 +13,7 @@ import org.zkoss.zk.ui.util.ExecutionInit;
 
 public class OpenSessionInViewListener implements ExecutionInit, ExecutionCleanup {
 
-	static Logger log = Logger.getLogger(OpenSessionInViewListener.class.getName());
+	private static final Logger log = LoggerFactory.getLogger(OpenSessionInViewListener.class);
  
     public void init(Execution exec, Execution parent) {
         if (parent == null) { //the root execution of a servlet request
@@ -26,7 +27,7 @@ public class OpenSessionInViewListener implements ExecutionInit, ExecutionCleanu
             if (errs == null || errs.isEmpty()) {
                 log.debug("Committing the database transaction: "+exec);
                 Transaction tr = HibernateUtil.getSessionFactory().getCurrentSession().getTransaction();
-                if (tr.isActive() && !tr.wasCommitted()){
+				if (tr.isActive() && !tr.wasCommitted()){
                 	tr.commit();
                 }
             } else {
