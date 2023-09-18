@@ -5,7 +5,13 @@ import java.lang.reflect.ParameterizedType;
 import java.util.Collection;
 import java.util.Map;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+
 import model.GenericDAO;
+import model.pojo.UserRole;
 
 import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
@@ -37,12 +43,7 @@ public abstract class GenericHibernateDAO<T, ID extends Serializable> implements
 	}
 
 	public Session getSession() {
-		if (session == null || !session.isConnected()){
-			session = HibernateUtil.getSessionFactory().getCurrentSession();
-		} else{
-			session.flush();
-		}
-		return session;
+		return HibernateUtil.getSessionFactory().openSession();
 	}
 	
 	public Criteria createCriteria(){
@@ -96,13 +97,22 @@ public abstract class GenericHibernateDAO<T, ID extends Serializable> implements
 	/**
 	 * Use this inside subclasses as a convenience method.
 	 */
-	protected Collection<T> findByCriteria(Criterion... criterion) {
-		Criteria crit = getSession().createCriteria(getPersistentClass());
-		crit.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-		for (Criterion c : criterion) {
-			crit.add(c);
-		}
-		return crit.list();
+	//protected Collection<T> findByCriteria(Criterion... criterion) {
+	//	Criteria crit = getSession().createCriteria(getPersistentClass());
+	//	crit.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+	//	for (Criterion c : criterion) {
+	//		crit.add(c);
+	//	}
+	//	return crit.list();
+	//}
+	
+	protected Collection<T> findByCriteria(Predicate... predicates) {
+        CriteriaBuilder builder = getSession().getCriteriaBuilder();
+        CriteriaQuery<T> query = builder.createQuery(getPersistentClass());
+        Root root = query.from(getPersistentClass());
+        query.where(predicates);
+        query.select(root);
+        return getSession().createQuery(query).getResultList();
 	}
 
 	/**

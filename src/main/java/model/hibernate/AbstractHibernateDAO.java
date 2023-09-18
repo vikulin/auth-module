@@ -5,6 +5,11 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+
 import model.GenericDAO;
 
 import org.hibernate.Criteria;
@@ -93,13 +98,14 @@ public abstract class AbstractHibernateDAO<T, ID extends Serializable> implement
      * Use this inside subclasses as a convenience method.
      */
     @SuppressWarnings("unchecked")
-    protected List<T> findByCriteria(Criterion... criterion) {
-        Criteria crit = getSession().createCriteria(getPersistentClass());
-        for (Criterion c : criterion) {
-            crit.add(c);
-        }
-        return crit.list();
-   }
+    protected List<T> findByCriteria(Predicate... predicates) {
+        CriteriaBuilder builder = getSession().getCriteriaBuilder();
+        CriteriaQuery<T> query = builder.createQuery(getPersistentClass());
+
+        query.where(predicates);
+
+        return getSession().createQuery(query).getResultList();
+    }
    
    	/**
  	 * Find by criteria.

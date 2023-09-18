@@ -2,14 +2,15 @@ package listener;
 
 import java.util.List;
 
-import model.hibernate.HibernateUtil;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.hibernate.Transaction;
+import org.hibernate.resource.transaction.spi.TransactionStatus;
 import org.zkoss.zk.ui.Execution;
 import org.zkoss.zk.ui.util.ExecutionCleanup;
 import org.zkoss.zk.ui.util.ExecutionInit;
+
+import model.hibernate.HibernateUtil;
 
 public class OpenSessionInViewListener implements ExecutionInit, ExecutionCleanup {
 
@@ -27,7 +28,8 @@ public class OpenSessionInViewListener implements ExecutionInit, ExecutionCleanu
             if (errs == null || errs.isEmpty()) {
                 log.debug("Committing the database transaction: "+exec);
                 Transaction tr = HibernateUtil.getSessionFactory().getCurrentSession().getTransaction();
-				if (tr.isActive() && !tr.wasCommitted()){
+                TransactionStatus status = tr.getStatus();
+				if (tr.isActive()){
                 	tr.commit();
                 }
             } else {

@@ -19,17 +19,9 @@
 		<property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
 		<!-- Disable the second-level cache -->
 		<property name="hibernate.cache.provider_class">org.hibernate.cache.internal.NoCacheProvider</property>
-		<!-- Hikari part -->
-		<property name="hibernate.connection.provider_class">org.hibernate.hikaricp.internal.HikariCPConnectionProvider</property>
-		<property name="hibernate.hikari.dataSource.user">root</property>
-		<property name="hibernate.hikari.dataSource.password">Basebase123))</property>
-		<property name="hibernate.hikari.dataSource.cachePrepStmts">true</property>
-		<property name="hibernate.hikari.dataSource.prepStmtCacheSize">250</property>
-		<property name="hibernate.hikari.dataSource.prepStmtCacheSqlLimit">2048</property>
-		<property name="hibernate.hikari.dataSource.useServerPrepStmts">true</property>
+		<property name="connection.username">root</property>
+		<property name="connection.password">Basebase123))</property>
 		<property name="hibernate.current_session_context_class">thread</property>
-		<property name="hibernate.hikari.maximumPoolSize">50</property>
-		<property name="hibernate.hikari.idleTimeout">30000</property>
 		<property name="show_sql">true</property>
 
 		<mapping resource="Role.hbm.xml" />

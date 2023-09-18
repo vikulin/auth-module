@@ -8,7 +8,7 @@
 	<properties>
 		<zk.version>9.6.0.2</zk.version>
 		<springsecurity.version>4.0.0.RELEASE</springsecurity.version>
-		<hibernate-version>4.3.11.Final</hibernate-version>
+		<hibernate-version>5.6.15.Final</hibernate-version>
 	</properties>
 <repositories>
 		<repository>
@@ -80,17 +80,6 @@
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
 			<version>${hibernate-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-hikaricp</artifactId>
-			<version>${hibernate-version}</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.slf4j</groupId>
-					<artifactId>slf4j-api</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 		<dependency>
 		    <groupId>mysql</groupId>
