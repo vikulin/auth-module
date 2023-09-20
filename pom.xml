@@ -3,12 +3,15 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>zk</groupId>
 	<artifactId>auth-module</artifactId>
-	<version>1.5.0-FINAL</version>
+	<version>1.6.1-jakarta</version>
 	<packaging>war</packaging>
 	<properties>
-		<zk.version>9.6.0.2</zk.version>
-		<springsecurity.version>4.0.0.RELEASE</springsecurity.version>
+		<zk.version>9.6.0.2-jakarta</zk.version>
+		<springsecurity.version>6.1.4</springsecurity.version>
 		<hibernate-version>6.3.0.Final</hibernate-version>
+		<java.version>17</java.version>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
 	</properties>
 <repositories>
 		<repository>
@@ -50,11 +53,6 @@
 		
 		<!-- ZK -->
 		<dependency>
-		    <groupId>org.zkoss.theme</groupId>
-		    <artifactId>sapphire</artifactId>
-		    <version>${zk.version}</version>
-		</dependency>
-		<dependency>
 			<groupId>org.zkoss.zk</groupId>
 			<artifactId>zkplus</artifactId>
 			<version>${zk.version}</version>
@@ -64,6 +62,11 @@
 			<groupId>org.zkoss.zk</groupId>
 			<artifactId>zkbind</artifactId>
 			<version>${zk.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.zkoss.theme</groupId>
+		    <artifactId>sapphire</artifactId>
+		    <version>9.6.0.2</version>
 		</dependency>
 		<!-- extra -->
 		<dependency>
@@ -102,13 +105,19 @@
 		    <artifactId>slf4j-simple</artifactId>
 		    <version>1.7.30</version>
 		</dependency>
+	    <dependency>
+	        <groupId>jakarta.servlet</groupId>
+	        <artifactId>jakarta.servlet-api</artifactId>
+	        <version>5.0.0</version>
+	        <scope>provided</scope>
+	    </dependency>
 	</dependencies>
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
-				<version>2.6</version>
+				<version>3.4.0</version>
 				<configuration>
 					<webXml>WebContent/WEB-INF/web.xml</webXml>
 					<webResources>
