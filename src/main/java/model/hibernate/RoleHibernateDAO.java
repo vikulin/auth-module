@@ -11,8 +11,6 @@ import javax.persistence.criteria.Root;
 import model.RoleDAO;
 import model.pojo.Role;
 
-import org.hibernate.criterion.Restrictions;
-
 /**
  * <p>
  * Hibernate DAO layer for Roles

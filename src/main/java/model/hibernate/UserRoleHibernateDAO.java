@@ -8,10 +8,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import model.UserRoleDAO;
-import model.pojo.UserPojo;
 import model.pojo.UserRole;
-
-import org.hibernate.criterion.Restrictions;
 
 /**
  * <p>
@@ -65,7 +62,7 @@ public class UserRoleHibernateDAO extends GenericHibernateDAO<UserRole, Long>
 	    CriteriaQuery<UserRole> query = builder.createQuery(UserRole.class);
 	    Root<UserRole> root = query.from(UserRole.class);
 
-	    Predicate predicate = builder.equal(root.get("role.id"), roleId);
+	    Predicate predicate = builder.equal(root.get("id"), roleId);
 	    query.select(root);
 	    query.where(predicate);
 

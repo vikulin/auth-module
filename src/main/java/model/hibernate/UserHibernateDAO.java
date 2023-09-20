@@ -8,16 +8,14 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import model.UserDAO;
-import model.pojo.Role;
-import model.pojo.User;
-import model.pojo.UserPojo;
-
 import org.hibernate.Session;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
+import model.UserDAO;
+import model.pojo.User;
+import model.pojo.UserPojo;
 
 /**
  * <p>Hibernate DAO layer for Users</p>

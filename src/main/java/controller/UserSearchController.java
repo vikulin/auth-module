@@ -3,12 +3,6 @@ package controller;
 import java.util.Collection;
 import java.util.Set;
 
-import model.UserDAO;
-import model.UserRoleDAO;
-import model.hibernate.UserHibernateDAO;
-import model.hibernate.UserRoleHibernateDAO;
-import model.pojo.UserPojo;
-
 import org.springframework.security.access.annotation.Secured;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.annotation.Listen;
@@ -18,6 +12,12 @@ import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.ext.Selectable;
+
+import model.UserDAO;
+import model.UserRoleDAO;
+import model.hibernate.UserHibernateDAO;
+import model.hibernate.UserRoleHibernateDAO;
+import model.pojo.UserPojo;
  
 public class UserSearchController extends PojoListboxController {
  

@@ -8,9 +8,6 @@ import java.util.Map;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-
-import model.GenericDAO;
 
 import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
@@ -20,6 +17,8 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Example;
 import org.hibernate.criterion.Restrictions;
+
+import model.GenericDAO;
 
 /**
  * Generated at Thu Mar 22 14:32:50 EET 2012

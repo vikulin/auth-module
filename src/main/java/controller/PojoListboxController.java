@@ -1,11 +1,11 @@
 package controller;
 
-import model.pojo.interfaces.Pojo;
-
 import org.springframework.security.access.annotation.Secured;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Window;
+
+import model.pojo.interfaces.Pojo;
 
 public abstract class PojoListboxController extends AbstractController {
 	

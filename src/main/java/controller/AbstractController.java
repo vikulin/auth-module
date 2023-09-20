@@ -3,8 +3,6 @@ package controller;
 import java.util.HashMap;
 import java.util.Map;
 
-import model.hibernate.HibernateUtil;
-
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.resource.transaction.spi.TransactionStatus;
@@ -15,6 +13,8 @@ import org.zkoss.zk.ui.UiException;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zul.Window;
+
+import model.hibernate.HibernateUtil;
 
 public abstract class AbstractController extends SelectorComposer<Window> {
 	

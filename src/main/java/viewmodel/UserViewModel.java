@@ -2,11 +2,11 @@ package viewmodel;
 
 import java.util.Collection;
 
+import org.zkoss.bind.annotation.Init;
+
 import model.RoleDAO;
 import model.hibernate.RoleHibernateDAO;
 import model.pojo.Role;
-
-import org.zkoss.bind.annotation.Init;
 
 public class UserViewModel {
 

@@ -10,9 +10,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import model.GenericDAO;
-import model.pojo.UserRole;
-
 import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
 import org.hibernate.LockMode;
@@ -21,6 +18,8 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Example;
 import org.hibernate.criterion.Restrictions;
+
+import model.GenericDAO;
 
 /**
  * Generated at Tue Apr 14 19:54:58 EEST 2015
