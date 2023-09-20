@@ -12,6 +12,7 @@ import org.hibernate.query.criteria.JpaRoot;
 
 import jakarta.persistence.criteria.Predicate;
 import model.GenericDAO;
+import model.pojo.Role;
 
 /**
  * Generated at Tue Apr 14 19:54:58 EEST 2015
@@ -91,5 +92,18 @@ public abstract class GenericHibernateDAO<T, ID extends Serializable> implements
         query.where(restrictions);
         query.select(root);
         return getSession().createQuery(query).getResultList();
+	}
+	
+	public Collection<T> findByFieldName(String field, Object value) {
+	    HibernateCriteriaBuilder builder = getSession().getCriteriaBuilder();
+	    JpaCriteriaQuery<T> query = builder.createQuery(getPersistentClass());
+	    JpaRoot<T> root = query.from(getPersistentClass());
+
+	    Predicate predicate = builder.equal(root.get(field), value);
+	    query.select(root);
+	    query.where(predicate);
+
+	    return getSession().createQuery(query).getResultList();
+		
 	}
 }
