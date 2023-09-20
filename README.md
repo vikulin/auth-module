@@ -4,6 +4,8 @@ Auth module based on ZK framework and Spring security. This is a template repo f
 
 Java 17
 
+Apache Tomcat 10.0
+
 ZK framework 9.6.0.2-jakarta
 
 Spring security 6.1.4
