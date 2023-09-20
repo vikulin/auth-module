@@ -52,7 +52,6 @@ public class UserHibernateDAO extends
 			throws UsernameNotFoundException {
 		Session session = getSession();
 		session.beginTransaction();
-		setSession(session);
 		Collection<UserPojo> results = findByLoginWithRole(userName);
 		session.getTransaction().commit();
 		if(results.size() == 0) {

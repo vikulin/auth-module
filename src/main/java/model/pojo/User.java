@@ -37,7 +37,6 @@ public class User implements UserDetails {
 		Set<GrantedAuthority> list = new HashSet<GrantedAuthority>();
 		UserRoleHibernateDAO userRoleDao = new UserRoleHibernateDAO();
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		userRoleDao.setSession(session);
 		session.beginTransaction();
 		Set<UserRole> userRoles = new HashSet<UserRole>(userRoleDao.findByUserId(id));
 		for (UserRole userRole:userRoles){

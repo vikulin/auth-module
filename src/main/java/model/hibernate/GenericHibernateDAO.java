@@ -12,7 +12,6 @@ import org.hibernate.query.criteria.JpaRoot;
 
 import jakarta.persistence.criteria.Predicate;
 import model.GenericDAO;
-import model.pojo.Role;
 
 /**
  * Generated at Tue Apr 14 19:54:58 EEST 2015
@@ -22,16 +21,10 @@ import model.pojo.Role;
  */
 public abstract class GenericHibernateDAO<T, ID extends Serializable> implements GenericDAO<T, ID> {
 
-	private Session session;
-
 	private Class<T> persistentClass;
 
 	public GenericHibernateDAO() {
 		this.persistentClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-	}
-
-	public void setSession(Session session) {
-		this.session = session;
 	}
 
 	public Session getSession() {
