@@ -2,11 +2,6 @@ package model.hibernate;
 
 import java.util.Collection;
 
-import org.hibernate.query.criteria.HibernateCriteriaBuilder;
-import org.hibernate.query.criteria.JpaCriteriaQuery;
-import org.hibernate.query.criteria.JpaPredicate;
-import org.hibernate.query.criteria.JpaRoot;
-
 import model.UserRoleDAO;
 import model.pojo.UserRole;
 
@@ -28,45 +23,23 @@ public class UserRoleHibernateDAO extends GenericHibernateDAO<UserRole, Long>
 	 * Find UserRole by id
 	 */
 	public Collection<UserRole> findById(Long id) {
-	    HibernateCriteriaBuilder builder = getSession().getCriteriaBuilder();
-	    JpaCriteriaQuery<UserRole> query = builder.createQuery(UserRole.class);
-	    JpaRoot<UserRole> root = query.from(UserRole.class);
-
-	    JpaPredicate predicate = builder.equal(root.get("id"), id);
-	    query.select(root);
-	    query.where(predicate);
-
-	    return getSession().createQuery(query).getResultList();
+	    return super.findByFieldName("id", id);
 	}
 
 	/**
 	 * Find UserRole by userId
 	 */
 	public Collection<UserRole> findByUserId(Long userId) {
-	    HibernateCriteriaBuilder builder = getSession().getCriteriaBuilder();
-	    JpaCriteriaQuery<UserRole> query = builder.createQuery(UserRole.class);
-	    JpaRoot<UserRole> root = query.from(UserRole.class);
-
-	    JpaPredicate predicate = builder.equal(root.get("id"), userId);
-	    query.select(root);
-	    query.where(predicate);
-
-	    return getSession().createQuery(query).getResultList();
+	    //TODO Fix me
+		return super.findByFieldName("id", userId);
 	}
 
 	/**
 	 * Find UserRole by roleId
 	 */
 	public Collection<UserRole> findByRoleId(Long roleId) {
-	    HibernateCriteriaBuilder builder = getSession().getCriteriaBuilder();
-	    JpaCriteriaQuery<UserRole> query = builder.createQuery(UserRole.class);
-	    JpaRoot<UserRole> root = query.from(UserRole.class);
-
-	    JpaPredicate predicate = builder.equal(root.get("id"), roleId);
-	    query.select(root);
-	    query.where(predicate);
-
-	    return getSession().createQuery(query).getResultList();
+		//TODO Fix me
+	    return super.findByFieldName("id", roleId);
 	}
 
 }

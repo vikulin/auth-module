@@ -21,16 +21,10 @@ import model.GenericDAO;
  */
 public abstract class GenericHibernateDAO<T, ID extends Serializable> implements GenericDAO<T, ID> {
 
-	private Session session;
-
 	private Class<T> persistentClass;
 
 	public GenericHibernateDAO() {
 		this.persistentClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-	}
-
-	public void setSession(Session session) {
-		this.session = session;
 	}
 
 	public Session getSession() {
@@ -91,5 +85,18 @@ public abstract class GenericHibernateDAO<T, ID extends Serializable> implements
         query.where(restrictions);
         query.select(root);
         return getSession().createQuery(query).getResultList();
+	}
+	
+	public Collection<T> findByFieldName(String field, Object value) {
+	    HibernateCriteriaBuilder builder = getSession().getCriteriaBuilder();
+	    JpaCriteriaQuery<T> query = builder.createQuery(getPersistentClass());
+	    JpaRoot<T> root = query.from(getPersistentClass());
+
+	    Predicate predicate = builder.equal(root.get(field), value);
+	    query.select(root);
+	    query.where(predicate);
+
+	    return getSession().createQuery(query).getResultList();
+		
 	}
 }
