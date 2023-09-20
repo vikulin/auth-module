@@ -3,12 +3,11 @@ package model.hibernate;
 import java.sql.Timestamp;
 import java.util.Collection;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-
 import org.hibernate.Session;
+import org.hibernate.query.criteria.HibernateCriteriaBuilder;
+import org.hibernate.query.criteria.JpaCriteriaQuery;
+import org.hibernate.query.criteria.JpaPredicate;
+import org.hibernate.query.criteria.JpaRoot;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -32,11 +31,11 @@ public class UserHibernateDAO extends
 	 * Find User by username
 	 */
 	public Collection<UserPojo> findByUsername(String username) {
-	    CriteriaBuilder builder = getSession().getCriteriaBuilder();
-	    CriteriaQuery<UserPojo> query = builder.createQuery(UserPojo.class);
-	    Root<UserPojo> root = query.from(UserPojo.class);
+	    HibernateCriteriaBuilder builder = getSession().getCriteriaBuilder();
+	    JpaCriteriaQuery<UserPojo> query = builder.createQuery(UserPojo.class);
+	    JpaRoot<UserPojo> root = query.from(UserPojo.class);
 
-	    Predicate predicate = builder.equal(root.get("username"), username);
+	    JpaPredicate predicate = builder.equal(root.get("username"), username);
 
 	    query.where(predicate);
 
@@ -47,11 +46,11 @@ public class UserHibernateDAO extends
 	 * Find User by password
 	 */
 	public Collection<UserPojo> findByPassword(String password) {
-	    CriteriaBuilder builder = getSession().getCriteriaBuilder();
-	    CriteriaQuery<UserPojo> query = builder.createQuery(UserPojo.class);
-	    Root<UserPojo> root = query.from(UserPojo.class);
+	    HibernateCriteriaBuilder builder = getSession().getCriteriaBuilder();
+	    JpaCriteriaQuery<UserPojo> query = builder.createQuery(UserPojo.class);
+	    JpaRoot<UserPojo> root = query.from(UserPojo.class);
 
-	    Predicate predicate = builder.equal(root.get("password"), password);
+	    JpaPredicate predicate = builder.equal(root.get("password"), password);
 	    query.select(root);
 	    query.where(predicate);
 
@@ -62,11 +61,11 @@ public class UserHibernateDAO extends
 	 * Find User by createDate
 	 */
 	public Collection<UserPojo> findByCreateDate(Timestamp createDate) {
-	    CriteriaBuilder builder = getSession().getCriteriaBuilder();
-	    CriteriaQuery<UserPojo> query = builder.createQuery(UserPojo.class);
-	    Root<UserPojo> root = query.from(UserPojo.class);
+	    HibernateCriteriaBuilder builder = getSession().getCriteriaBuilder();
+	    JpaCriteriaQuery<UserPojo> query = builder.createQuery(UserPojo.class);
+	    JpaRoot<UserPojo> root = query.from(UserPojo.class);
 
-	    Predicate predicate = builder.equal(root.get("createDate"), createDate);
+	    JpaPredicate predicate = builder.equal(root.get("createDate"), createDate);
 	    query.select(root);
 	    query.where(predicate);
 
@@ -74,11 +73,11 @@ public class UserHibernateDAO extends
 	}
 	
 	public Collection<UserPojo> findByLoginWithRole(String login) {
-	    CriteriaBuilder builder = getSession().getCriteriaBuilder();
-	    CriteriaQuery<UserPojo> query = builder.createQuery(UserPojo.class);
-	    Root<UserPojo> root = query.from(UserPojo.class);
+	    HibernateCriteriaBuilder builder = getSession().getCriteriaBuilder();
+	    JpaCriteriaQuery<UserPojo> query = builder.createQuery(UserPojo.class);
+	    JpaRoot<UserPojo> root = query.from(UserPojo.class);
 
-	    Predicate predicate = builder.equal(root.get("username"), login);
+	    JpaPredicate predicate = builder.equal(root.get("username"), login);
 	    query.select(root);
 	    query.where(predicate);
 

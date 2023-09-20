@@ -2,9 +2,6 @@ package model;
 
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.Map;
-
-import org.hibernate.Criteria;
 
 /**
  * Generated at Tue Apr 14 19:54:58 EEST 2015
@@ -14,8 +11,6 @@ import org.hibernate.Criteria;
  */
 public interface GenericDAO<T, ID extends Serializable> {
 	
-	Criteria createCriteria();
-
 	T getById(ID id, boolean lock);
 
 	T getById(ID id);
@@ -23,12 +18,6 @@ public interface GenericDAO<T, ID extends Serializable> {
 	T loadById(ID id);
 
 	Collection<T> findAll();
-
-	Collection<T> findByCriteria(Map<?,?> criterias);
-	
-	Collection<T> findByCriteriaWith(Object... criterion);
-
-	Collection<T> findByExample(T exampleInstance, String[] excludeProperty);
 
 	void save(T entity);
 

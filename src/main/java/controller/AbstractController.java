@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.resource.transaction.spi.TransactionStatus;
 import org.zkoss.zk.ui.Execution;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.SuspendNotAllowedException;
@@ -59,7 +58,7 @@ public abstract class AbstractController extends SelectorComposer<Window> {
     	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
     	Transaction tr = session.getTransaction();
     	try {
-    		if (tr.getStatus().equals(TransactionStatus.ACTIVE)) {
+    		if (tr.isActive()) {
     			tr.commit();
     		}
     	} catch (Exception ex){

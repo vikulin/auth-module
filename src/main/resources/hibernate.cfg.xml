@@ -16,7 +16,7 @@
         <property name="hibernate.connection.useUnicode">true</property>
         <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
 		<!-- Your database is MySQL 5.5 -->
-		<property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
+		<property name="dialect">org.hibernate.dialect.MySQL8Dialect</property>
 		<!-- Disable the second-level cache -->
 		<property name="hibernate.cache.provider_class">org.hibernate.cache.internal.NoCacheProvider</property>
 		<!-- Hikari part -->

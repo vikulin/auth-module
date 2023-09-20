@@ -3,11 +3,11 @@ package model.hibernate;
 import java.sql.Timestamp;
 import java.util.Collection;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import org.hibernate.query.criteria.HibernateCriteriaBuilder;
+import org.hibernate.query.criteria.JpaCriteriaQuery;
+import org.hibernate.query.criteria.JpaRoot;
 
+import jakarta.persistence.criteria.Predicate;
 import model.RoleDAO;
 import model.pojo.Role;
 
@@ -29,9 +29,9 @@ public class RoleHibernateDAO extends GenericHibernateDAO<Role, Long>
 	 * Find Role by name
 	 */
 	public Collection<Role> findByName(String name) {
-	    CriteriaBuilder builder = getSession().getCriteriaBuilder();
-	    CriteriaQuery<Role> query = builder.createQuery(Role.class);
-	    Root<Role> root = query.from(Role.class);
+	    HibernateCriteriaBuilder builder = getSession().getCriteriaBuilder();
+	    JpaCriteriaQuery<Role> query = builder.createQuery(Role.class);
+	    JpaRoot<Role> root = query.from(Role.class);
 
 	    Predicate predicate = builder.equal(root.get("name"), name);
 	    query.select(root);
@@ -45,9 +45,9 @@ public class RoleHibernateDAO extends GenericHibernateDAO<Role, Long>
 	 * Find Role by createDate
 	 */
 	public Collection<Role> findByCreateDate(Timestamp createDate) {
-	    CriteriaBuilder builder = getSession().getCriteriaBuilder();
-	    CriteriaQuery<Role> query = builder.createQuery(Role.class);
-	    Root<Role> root = query.from(Role.class);
+	    HibernateCriteriaBuilder builder = getSession().getCriteriaBuilder();
+	    JpaCriteriaQuery<Role> query = builder.createQuery(Role.class);
+	    JpaRoot<Role> root = query.from(Role.class);
 
 	    Predicate predicate = builder.equal(root.get("createDate"), createDate);
 	    query.select(root);

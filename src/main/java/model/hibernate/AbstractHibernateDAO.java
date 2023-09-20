@@ -3,21 +3,13 @@ package model.hibernate;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
-import java.util.Map;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-
-import org.hibernate.Criteria;
-import org.hibernate.FetchMode;
 import org.hibernate.LockOptions;
-import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.Example;
-import org.hibernate.criterion.Restrictions;
+import org.hibernate.query.criteria.HibernateCriteriaBuilder;
+import org.hibernate.query.criteria.JpaCriteriaQuery;
 
+import jakarta.persistence.criteria.Predicate;
 import model.GenericDAO;
 
 /**
@@ -98,83 +90,11 @@ public abstract class AbstractHibernateDAO<T, ID extends Serializable> implement
      */
     @SuppressWarnings("unchecked")
     protected List<T> findByCriteria(Predicate... predicates) {
-        CriteriaBuilder builder = getSession().getCriteriaBuilder();
-        CriteriaQuery<T> query = builder.createQuery(getPersistentClass());
+        HibernateCriteriaBuilder builder = getSession().getCriteriaBuilder();
+        JpaCriteriaQuery<T> query = builder.createQuery(getPersistentClass());
 
         query.where(predicates);
 
         return getSession().createQuery(query).getResultList();
     }
-   
-   	/**
- 	 * Find by criteria.
-	 */
-	@SuppressWarnings("unchecked")
-	public List<T> findByCriteria(Map criterias) {
-	
-		Criteria criteria = getSession().createCriteria(getPersistentClass());
-		criteria.add(Restrictions.allEq(criterias));
-		return criteria.list();
-	}
-	
-	/**
-	 * This method will execute an HQL query and return the number of affected entities.
-	 */
-	protected int executeQuery(String query, String namedParams[],	Object params[]) {
-		Query q = getSession().createQuery(query);
-		
-		if (namedParams != null) {
-			for (int i = 0; i < namedParams.length; i++) {
-				q.setParameter(namedParams[i], params[i]);
-			}
-		}
-
-		return q.executeUpdate();
-	}
-	
-	protected int executeQuery(String query) {
-		return executeQuery(query, null, null);
-	}
-	
-	/**
-	 * This method will execute a Named HQL query and return the number of affected entities.
-	 */
-	protected int executeNamedQuery(String namedQuery, String namedParams[],	Object params[]) {
-		Query q = getSession().getNamedQuery(namedQuery);
-		
-		if (namedParams != null) {
-			for (int i = 0; i < namedParams.length; i++) {
-				q.setParameter(namedParams[i], params[i]);
-			}
-		}
-
-		return q.executeUpdate();
-	}
-	
-	protected int executeNamedQuery(String namedQuery) {
-		return executeNamedQuery(namedQuery, null, null);
-	}
-	
-	@SuppressWarnings("unchecked")
-    public List<T> findByExample(T exampleInstance, String[] excludeProperty) {
-        Criteria crit = getSession().createCriteria(getPersistentClass());
-        Example example =  Example.create(exampleInstance).excludeZeroes().enableLike().ignoreCase();
-        for (String exclude : excludeProperty) {
-            example.excludeProperty(exclude);
-        }
-        crit.add(example);
-        return crit.list();
-    }
-    
-	public List<T> findByCriteriaWith(Object... criterion) {
-        Criteria crit = getSession().createCriteria(getPersistentClass());
-        for (Object c : criterion) {
-        	if (c instanceof Criterion)
-        		crit.add((Criterion)c);
-        	else
-        		if (c instanceof String)
-        			crit.setFetchMode(c.toString(), FetchMode.JOIN);
-        }
-        return crit.list();
-   }
 }

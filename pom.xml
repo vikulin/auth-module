@@ -8,7 +8,7 @@
 	<properties>
 		<zk.version>9.6.0.2</zk.version>
 		<springsecurity.version>4.0.0.RELEASE</springsecurity.version>
-		<hibernate-version>5.6.15.Final</hibernate-version>
+		<hibernate-version>6.3.0.Final</hibernate-version>
 	</properties>
 <repositories>
 		<repository>
@@ -77,7 +77,7 @@
 			<version>2.2</version>
 		</dependency>
 		<dependency>
-			<groupId>org.hibernate</groupId>
+			<groupId>org.hibernate.orm</groupId>
 			<artifactId>hibernate-core</artifactId>
 			<version>${hibernate-version}</version>
 		</dependency>

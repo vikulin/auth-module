@@ -2,10 +2,10 @@ package model.hibernate;
 
 import java.util.Collection;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import org.hibernate.query.criteria.HibernateCriteriaBuilder;
+import org.hibernate.query.criteria.JpaCriteriaQuery;
+import org.hibernate.query.criteria.JpaPredicate;
+import org.hibernate.query.criteria.JpaRoot;
 
 import model.UserRoleDAO;
 import model.pojo.UserRole;
@@ -28,11 +28,11 @@ public class UserRoleHibernateDAO extends GenericHibernateDAO<UserRole, Long>
 	 * Find UserRole by id
 	 */
 	public Collection<UserRole> findById(Long id) {
-	    CriteriaBuilder builder = getSession().getCriteriaBuilder();
-	    CriteriaQuery<UserRole> query = builder.createQuery(UserRole.class);
-	    Root<UserRole> root = query.from(UserRole.class);
+	    HibernateCriteriaBuilder builder = getSession().getCriteriaBuilder();
+	    JpaCriteriaQuery<UserRole> query = builder.createQuery(UserRole.class);
+	    JpaRoot<UserRole> root = query.from(UserRole.class);
 
-	    Predicate predicate = builder.equal(root.get("id"), id);
+	    JpaPredicate predicate = builder.equal(root.get("id"), id);
 	    query.select(root);
 	    query.where(predicate);
 
@@ -43,11 +43,11 @@ public class UserRoleHibernateDAO extends GenericHibernateDAO<UserRole, Long>
 	 * Find UserRole by userId
 	 */
 	public Collection<UserRole> findByUserId(Long userId) {
-	    CriteriaBuilder builder = getSession().getCriteriaBuilder();
-	    CriteriaQuery<UserRole> query = builder.createQuery(UserRole.class);
-	    Root<UserRole> root = query.from(UserRole.class);
+	    HibernateCriteriaBuilder builder = getSession().getCriteriaBuilder();
+	    JpaCriteriaQuery<UserRole> query = builder.createQuery(UserRole.class);
+	    JpaRoot<UserRole> root = query.from(UserRole.class);
 
-	    Predicate predicate = builder.equal(root.get("id"), userId);
+	    JpaPredicate predicate = builder.equal(root.get("id"), userId);
 	    query.select(root);
 	    query.where(predicate);
 
@@ -58,11 +58,11 @@ public class UserRoleHibernateDAO extends GenericHibernateDAO<UserRole, Long>
 	 * Find UserRole by roleId
 	 */
 	public Collection<UserRole> findByRoleId(Long roleId) {
-	    CriteriaBuilder builder = getSession().getCriteriaBuilder();
-	    CriteriaQuery<UserRole> query = builder.createQuery(UserRole.class);
-	    Root<UserRole> root = query.from(UserRole.class);
+	    HibernateCriteriaBuilder builder = getSession().getCriteriaBuilder();
+	    JpaCriteriaQuery<UserRole> query = builder.createQuery(UserRole.class);
+	    JpaRoot<UserRole> root = query.from(UserRole.class);
 
-	    Predicate predicate = builder.equal(root.get("id"), roleId);
+	    JpaPredicate predicate = builder.equal(root.get("id"), roleId);
 	    query.select(root);
 	    query.where(predicate);
 
