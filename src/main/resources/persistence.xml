@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+             http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
+             version="2.2">
+    <persistence-unit name="YourPersistenceUnitName">
+        <description>My Persistence Unit</description>
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <class>model.pojo.UserPojo</class>
+        <class>model.pojo.Role</class>
+        <class>model.pojo.UserRole</class> <!-- Add your entity classes here -->
+        <mapping-file>WEB-INF/classes/orm.xml</mapping-file> <!-- Add the path to your orm.xml file -->
+        <!-- Add other properties, if needed -->
+    </persistence-unit>
+</persistence>

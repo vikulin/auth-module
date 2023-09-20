@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm
+                 http://xmlns.jcp.org/xml/ns/persistence/orm_2_2.xsd"
+	version="2.2">
+
+	<persistence-unit-metadata>
+		<!-- Define the persistence unit metadata, if needed -->
+	</persistence-unit-metadata>
+
+	<entity class="model.pojo.UserRole" access="FIELD">
+		<table name="user_role" />
+		<attributes>
+			<id name="id">
+				<generated-value strategy="AUTO" />
+			</id>
+			<many-to-one name="user" fetch="LAZY">
+				<join-column name="USER_ID" />
+			</many-to-one>
+			<many-to-one name="role" fetch="EAGER">
+				<join-column name="ROLE_ID" />
+			</many-to-one>
+		</attributes>
+	</entity>
+	<entity class="model.pojo.UserPojo" access="FIELD">
+		<table name="user" />
+		<attributes>
+			<id name="id">
+				<generated-value strategy="AUTO" />
+			</id>
+			<basic name="username">
+				<column name="USERNAME" />
+			</basic>
+			<basic name="password">
+				<column name="PASSWORD" />
+			</basic>
+			<basic name="createDate">
+				<column name="CREATE_DATE" />
+			</basic>
+			<one-to-many name="userRoles"
+				target-entity="model.pojo.UserRole" fetch="EAGER">
+				<join-column name="USER_ID" />
+			</one-to-many>
+		</attributes>
+	</entity>
+	<entity class="model.pojo.Role" access="FIELD">
+		<table name="role" />
+		<attributes>
+			<id name="id">
+				<generated-value strategy="AUTO" />
+			</id>
+			<basic name="name">
+				<column name="NAME" />
+			</basic>
+			<basic name="createDate">
+				<column name="CREATE_DATE" />
+			</basic>
+			<one-to-many name="userRoles"
+				target-entity="model.pojo.UserRole">
+				<join-column name="ROLE_ID" />
+			</one-to-many>
+		</attributes>
+	</entity>
+
+</entity-mappings>
