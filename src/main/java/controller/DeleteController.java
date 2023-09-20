@@ -1,10 +1,10 @@
 package controller;
 
-import model.hibernate.HibernateUtil;
-
 import org.hibernate.Session;
 import org.springframework.security.access.annotation.Secured;
 import org.zkoss.zk.ui.select.annotation.Listen;
+
+import model.hibernate.HibernateUtil;
 
 public class DeleteController extends AbstractController {
 

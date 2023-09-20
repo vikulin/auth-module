@@ -5,7 +5,9 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import java.util.Map;
 
-import model.GenericDAO;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 
 import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
@@ -15,6 +17,8 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Example;
 import org.hibernate.criterion.Restrictions;
+
+import model.GenericDAO;
 
 /**
  * Generated at Thu Mar 22 14:32:50 EET 2012
@@ -93,13 +97,14 @@ public abstract class AbstractHibernateDAO<T, ID extends Serializable> implement
      * Use this inside subclasses as a convenience method.
      */
     @SuppressWarnings("unchecked")
-    protected List<T> findByCriteria(Criterion... criterion) {
-        Criteria crit = getSession().createCriteria(getPersistentClass());
-        for (Criterion c : criterion) {
-            crit.add(c);
-        }
-        return crit.list();
-   }
+    protected List<T> findByCriteria(Predicate... predicates) {
+        CriteriaBuilder builder = getSession().getCriteriaBuilder();
+        CriteriaQuery<T> query = builder.createQuery(getPersistentClass());
+
+        query.where(predicates);
+
+        return getSession().createQuery(query).getResultList();
+    }
    
    	/**
  	 * Find by criteria.

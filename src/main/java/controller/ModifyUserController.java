@@ -5,13 +5,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import model.UserDAO;
-import model.hibernate.UserHibernateDAO;
-import model.hibernate.UserRoleHibernateDAO;
-import model.pojo.Role;
-import model.pojo.UserPojo;
-import model.pojo.UserRole;
-
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.zkoss.zk.ui.select.annotation.Listen;
@@ -19,6 +12,13 @@ import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
+
+import model.UserDAO;
+import model.hibernate.UserHibernateDAO;
+import model.hibernate.UserRoleHibernateDAO;
+import model.pojo.Role;
+import model.pojo.UserPojo;
+import model.pojo.UserRole;
 
 public class ModifyUserController extends AbstractController {
 
