@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>zk</groupId>
 	<artifactId>auth-module</artifactId>
-	<version>1.5.0-FINAL</version>
+	<version>1.6.0-jakarta</version>
 	<packaging>war</packaging>
 	<properties>
 		<zk.version>9.6.0.2-jakarta</zk.version>
@@ -62,6 +62,11 @@
 			<groupId>org.zkoss.zk</groupId>
 			<artifactId>zkbind</artifactId>
 			<version>${zk.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.zkoss.theme</groupId>
+		    <artifactId>sapphire</artifactId>
+		    <version>9.6.0.2</version>
 		</dependency>
 		<!-- extra -->
 		<dependency>
