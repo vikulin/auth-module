@@ -1,6 +1,6 @@
 Auth module based on ZK framework and Spring security.
 
-# Dependencies:
+## Dependencies:
 
 Java 17
 
