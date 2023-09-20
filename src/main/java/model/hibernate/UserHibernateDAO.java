@@ -87,7 +87,7 @@ public class UserHibernateDAO extends
 	
 	public UserDetails loadUserByUsername(String userName)
 			throws UsernameNotFoundException {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = getSession();
 		session.beginTransaction();
 		setSession(session);
 		Collection<UserPojo> results = findByLoginWithRole(userName);

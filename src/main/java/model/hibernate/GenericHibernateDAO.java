@@ -42,7 +42,7 @@ public abstract class GenericHibernateDAO<T, ID extends Serializable> implements
 	}
 
 	public Session getSession() {
-		return HibernateUtil.getSessionFactory().openSession();
+		return HibernateUtil.getSessionFactory().getCurrentSession();
 	}
 	
 	public Criteria createCriteria(){

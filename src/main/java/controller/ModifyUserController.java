@@ -65,8 +65,8 @@ public class ModifyUserController extends AbstractController {
     		userRoleDAO.save(userRole);
     		Messagebox.show("Пользователь "+user.getUsername()+" успешно создан");
     	} else {
-    		userDAO.saveOrUpdate(user);
-    		userRoleDAO.saveOrUpdate(userRole);
+    		userDAO.update(user);
+    		userRoleDAO.update(userRole);
     		Messagebox.show("Пользователь "+user.getUsername()+" успешно изменён");
     	}
     	close();

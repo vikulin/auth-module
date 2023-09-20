@@ -3,7 +3,6 @@ package listener;
 import java.util.List;
 
 import org.hibernate.Transaction;
-import org.hibernate.resource.transaction.spi.TransactionStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.zkoss.zk.ui.Execution;
@@ -28,7 +27,6 @@ public class OpenSessionInViewListener implements ExecutionInit, ExecutionCleanu
             if (errs == null || errs.isEmpty()) {
                 log.debug("Committing the database transaction: "+exec);
                 Transaction tr = HibernateUtil.getSessionFactory().getCurrentSession().getTransaction();
-                TransactionStatus status = tr.getStatus();
 				if (tr.isActive()){
                 	tr.commit();
                 }
