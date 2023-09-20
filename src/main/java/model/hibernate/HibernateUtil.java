@@ -1,25 +1,17 @@
 package model.hibernate;
  
-import org.hibernate.SessionFactory;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.service.ServiceRegistry;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
  
 public class HibernateUtil {
-    private static SessionFactory sessionFactory;
+    
+    private static EntityManagerFactory entityManagerFactory;
      
-    public static SessionFactory getSessionFactory() {
-        if (sessionFactory == null) {
-            // loads configuration and mappings
-            Configuration configuration = new Configuration().configure();
-            ServiceRegistry serviceRegistry
-                = new StandardServiceRegistryBuilder()
-                    .applySettings(configuration.getProperties()).build();
-             
-            // builds a session factory from the service registry
-            sessionFactory = configuration.buildSessionFactory();           
+    public static EntityManagerFactory getSessionFactory() {
+        if (entityManagerFactory == null) {
+            entityManagerFactory = Persistence.createEntityManagerFactory("persistence");          
         }
          
-        return sessionFactory;
+        return entityManagerFactory;
     }
 }

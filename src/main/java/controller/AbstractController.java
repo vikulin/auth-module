@@ -3,8 +3,6 @@ package controller;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.zkoss.zk.ui.Execution;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.SuspendNotAllowedException;
@@ -13,7 +11,8 @@ import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zul.Window;
 
-import model.hibernate.HibernateUtil;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
 
 public abstract class AbstractController extends SelectorComposer<Window> {
 	
@@ -54,9 +53,8 @@ public abstract class AbstractController extends SelectorComposer<Window> {
 	}
 	
     @Listen("onClick = #closeButton")
-    public void close() throws Exception {
-    	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-    	Transaction tr = session.getTransaction();
+    public void close(EntityManager entityManager) throws Exception {
+    	EntityTransaction tr = entityManager.getTransaction();
     	try {
     		if (tr.isActive()) {
     			tr.commit();
@@ -64,7 +62,9 @@ public abstract class AbstractController extends SelectorComposer<Window> {
     	} catch (Exception ex){
     		tr.rollback();
     		throw new Exception(ex);
-    	}
+    	} finally {
+    		entityManager.close();
+		}
     	getSelf().detach();
     }
 	

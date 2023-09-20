@@ -13,7 +13,10 @@ import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
 import model.UserDAO;
+import model.hibernate.HibernateUtil;
 import model.hibernate.UserHibernateDAO;
 import model.hibernate.UserRoleHibernateDAO;
 import model.pojo.Role;
@@ -59,17 +62,23 @@ public class ModifyUserController extends AbstractController {
     	Set<UserRole> userRoles = new HashSet<UserRole>();
     	userRoles.add(userRole);
     	user.setUserRoles(userRoles);
+    	EntityManager entityManager = HibernateUtil.getSessionFactory().createEntityManager();
+    	EntityTransaction tr = entityManager.getTransaction();
     	if (user.getId()==null){
         	user.setCreateDate(new Timestamp(new Date().getTime()));
-    		userDAO.save(user);
+        	tr.begin();
+        	userDAO.save(user);
     		userRoleDAO.save(userRole);
+    		tr.commit();
     		Messagebox.show("Пользователь "+user.getUsername()+" успешно создан");
     	} else {
+    		tr.begin();
     		userDAO.update(user);
     		userRoleDAO.update(userRole);
+    		tr.commit();
     		Messagebox.show("Пользователь "+user.getUsername()+" успешно изменён");
     	}
-    	close();
+    	close(entityManager);
     	reload(user);
     }
 }

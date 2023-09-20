@@ -3,11 +3,11 @@ package model.hibernate;
 import java.sql.Timestamp;
 import java.util.Collection;
 
-import org.hibernate.Session;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+import jakarta.persistence.EntityTransaction;
 import model.UserDAO;
 import model.pojo.User;
 import model.pojo.UserPojo;
@@ -50,10 +50,10 @@ public class UserHibernateDAO extends
 	
 	public UserDetails loadUserByUsername(String userName)
 			throws UsernameNotFoundException {
-		Session session = getSession();
-		session.beginTransaction();
+		EntityTransaction tx = getSession().getTransaction();
+		tx.begin();
 		Collection<UserPojo> results = findByLoginWithRole(userName);
-		session.getTransaction().commit();
+		tx.commit();
 		if(results.size() == 0) {
             throw new UsernameNotFoundException(userName + "not found");
 		}

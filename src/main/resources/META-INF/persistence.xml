@@ -4,13 +4,18 @@
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
              http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
              version="2.2">
-    <persistence-unit name="YourPersistenceUnitName">
+    <persistence-unit name="persistence">
         <description>My Persistence Unit</description>
-        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <mapping-file>META-INF/orm.xml</mapping-file> <!-- Add the path to your orm.xml file -->
         <class>model.pojo.UserPojo</class>
         <class>model.pojo.Role</class>
         <class>model.pojo.UserRole</class> <!-- Add your entity classes here -->
-        <mapping-file>WEB-INF/classes/orm.xml</mapping-file> <!-- Add the path to your orm.xml file -->
         <!-- Add other properties, if needed -->
+        <properties>
+			<property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/calendar?autoReconnect=true&amp;useUnicode=true&amp;createDatabaseIfNotExist=true&amp;characterEncoding=utf-8&amp;useSSL=false&amp;allowPublicKeyRetrieval=true&amp;serverTimezone=UTC" />
+			<property name="jakarta.persistence.jdbc.user" value="root" />
+			<property name="jakarta.persistence.jdbc.password" value="Basebase123))" />
+			<property name="hibernate.show_sql" value="true" />
+		</properties>
     </persistence-unit>
 </persistence>

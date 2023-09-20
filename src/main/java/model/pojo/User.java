@@ -4,11 +4,11 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.hibernate.Session;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import jakarta.persistence.EntityTransaction;
 import model.hibernate.HibernateUtil;
 import model.hibernate.UserRoleHibernateDAO;
 
@@ -36,13 +36,13 @@ public class User implements UserDetails {
 	public Collection<GrantedAuthority> getAuthorities() {
 		Set<GrantedAuthority> list = new HashSet<GrantedAuthority>();
 		UserRoleHibernateDAO userRoleDao = new UserRoleHibernateDAO();
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		session.beginTransaction();
+		EntityTransaction tx = HibernateUtil.getSessionFactory().createEntityManager().getTransaction();
+		tx.begin();
 		Set<UserRole> userRoles = new HashSet<UserRole>(userRoleDao.findByUserId(id));
 		for (UserRole userRole:userRoles){
 			list.add(new SimpleGrantedAuthority(userRole.getRole().getName()));
 		}
-		session.getTransaction().commit();
+		tx.commit();
 		return list;
 	}
 	public boolean isAccountNonExpired() {

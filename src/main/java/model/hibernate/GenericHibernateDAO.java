@@ -10,7 +10,12 @@ import org.hibernate.query.criteria.HibernateCriteriaBuilder;
 import org.hibernate.query.criteria.JpaCriteriaQuery;
 import org.hibernate.query.criteria.JpaRoot;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.LockModeType;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 import model.GenericDAO;
 
 /**
@@ -27,8 +32,8 @@ public abstract class GenericHibernateDAO<T, ID extends Serializable> implements
 		this.persistentClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 	}
 
-	public Session getSession() {
-		return HibernateUtil.getSessionFactory().getCurrentSession();
+	public EntityManager getSession() {
+		return HibernateUtil.getSessionFactory().createEntityManager();
 	}
 	
 	public Class<T> getPersistentClass() {
@@ -36,39 +41,39 @@ public abstract class GenericHibernateDAO<T, ID extends Serializable> implements
 	}
 
 	public T getById(ID id) {
-		return (T) getSession().get(getPersistentClass(), id);
+		return (T) getSession().find(getPersistentClass(), id);
 	}
 
 	public T getById(ID id, boolean lock) {
 		if (lock) {
-			return (T) getSession().get(getPersistentClass(), id,
-					LockMode.UPGRADE_NOWAIT);
+			return (T) getSession().find(getPersistentClass(), id,
+					LockModeType.READ);
 		} else
 			return getById(id);
 	}
 
 	public T loadById(ID id) {
-		return (T) getSession().load(getPersistentClass(), id);
+		return (T) getSession().find(getPersistentClass(), id);
 	}
 
 	public void save(T entity) {
-		getSession().save(entity);
+		getSession().persist(entity);
 	}
 
 	public void update(T entity) {
-		getSession().update(entity);
+		getSession().merge(entity);
 	}
 
 	public void saveOrUpdate(T entity) {
-		getSession().saveOrUpdate(entity);
+		getSession().merge(entity);
 	}
 
 	public void delete(T entity) {
-		getSession().delete(entity);
+		getSession().remove(entity);
 	}
 
 	public void deleteById(ID id) {
-		getSession().delete(loadById(id));
+		getSession().remove(loadById(id));
 	}
 
 	public Collection<T> findAll() {
@@ -79,18 +84,18 @@ public abstract class GenericHibernateDAO<T, ID extends Serializable> implements
 	 * Use this inside subclasses as a convenience method.
 	 */
 	protected Collection<T> findByCriteria(Predicate... restrictions) {
-        HibernateCriteriaBuilder builder = getSession().getCriteriaBuilder();
-        JpaCriteriaQuery<T> query = builder.createQuery(getPersistentClass());
-        JpaRoot<T> root = query.from(getPersistentClass());
+        CriteriaBuilder builder = getSession().getCriteriaBuilder();
+        CriteriaQuery<T> query = builder.createQuery(getPersistentClass());
+        Root<T> root = query.from(getPersistentClass());
         query.where(restrictions);
         query.select(root);
         return getSession().createQuery(query).getResultList();
 	}
 	
 	public Collection<T> findByFieldName(String field, Object value) {
-	    HibernateCriteriaBuilder builder = getSession().getCriteriaBuilder();
-	    JpaCriteriaQuery<T> query = builder.createQuery(getPersistentClass());
-	    JpaRoot<T> root = query.from(getPersistentClass());
+	    CriteriaBuilder builder = getSession().getCriteriaBuilder();
+	    CriteriaQuery<T> query = builder.createQuery(getPersistentClass());
+	    Root<T> root = query.from(getPersistentClass());
 
 	    Predicate predicate = builder.equal(root.get(field), value);
 	    query.select(root);

@@ -9,6 +9,7 @@ import org.zkoss.zk.ui.Execution;
 import org.zkoss.zk.ui.util.ExecutionCleanup;
 import org.zkoss.zk.ui.util.ExecutionInit;
 
+import jakarta.persistence.EntityTransaction;
 import model.hibernate.HibernateUtil;
 
 public class OpenSessionInViewListener implements ExecutionInit, ExecutionCleanup {
@@ -18,7 +19,7 @@ public class OpenSessionInViewListener implements ExecutionInit, ExecutionCleanu
     public void init(Execution exec, Execution parent) {
         if (parent == null) { //the root execution of a servlet request
             log.debug("Starting a database transaction: "+exec);
-            HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
+            HibernateUtil.getSessionFactory().createEntityManager().getTransaction().begin();
         }
     }
  
@@ -26,7 +27,7 @@ public class OpenSessionInViewListener implements ExecutionInit, ExecutionCleanu
         if (parent == null) { //the root execution of a servlet request
             if (errs == null || errs.isEmpty()) {
                 log.debug("Committing the database transaction: "+exec);
-                Transaction tr = HibernateUtil.getSessionFactory().getCurrentSession().getTransaction();
+                EntityTransaction tr = HibernateUtil.getSessionFactory().createEntityManager().getTransaction();
 				if (tr.isActive()){
                 	tr.commit();
                 }
@@ -39,9 +40,9 @@ public class OpenSessionInViewListener implements ExecutionInit, ExecutionCleanu
  
     private void rollback(Execution exec, Throwable ex) {
         try {
-            if (HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().isActive()) {
+            if (HibernateUtil.getSessionFactory().createEntityManager().getTransaction().isActive()) {
                 log.debug("Trying to rollback database transaction after exception:"+ex);
-                HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().rollback();
+                HibernateUtil.getSessionFactory().createEntityManager().getTransaction().rollback();
             }
         } catch (Throwable rbEx) {
             log.error("Could not rollback transaction after exception! Original Exception:\n"+ex, rbEx);
