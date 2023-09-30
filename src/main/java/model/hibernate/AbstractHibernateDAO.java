@@ -42,12 +42,10 @@ public abstract class AbstractHibernateDAO<T, ID extends Serializable> implement
         return persistentClass;
     }
 
-	@SuppressWarnings("unchecked")
 	public T getById(ID id) {
 		return (T) getSession().get(getPersistentClass(), id);
 	}
 
-	@SuppressWarnings("unchecked")
 	public T getById(ID id, boolean lock) {
 		if (lock) {
 			return (T) getSession().get(getPersistentClass(), id,
@@ -56,17 +54,16 @@ public abstract class AbstractHibernateDAO<T, ID extends Serializable> implement
 			return getById(id);
 	}
 
-	@SuppressWarnings("unchecked")
 	public T loadById(ID id) {
-		return (T) getSession().load(getPersistentClass(), id);
+		return (T) getSession().getReference(getPersistentClass(), id);
 	}
 
 	public void save(T entity) {
-		getSession().save(entity);
+		getSession().persist(entity);
 	}
 
 	public void update(T entity) {
-		getSession().update(entity);
+		getSession().merge(entity);
 	}
 
 	public void saveOrUpdate(T entity) {
@@ -74,11 +71,11 @@ public abstract class AbstractHibernateDAO<T, ID extends Serializable> implement
 	}
 
 	public void delete(T entity) {
-		getSession().delete(entity);
+		getSession().remove(entity);
 	}
 
 	public void deleteById(ID id) 	{
-		getSession().delete(loadById(id));
+		getSession().remove(loadById(id));
 	}
 
 	public List<T> findAll() {
@@ -88,7 +85,6 @@ public abstract class AbstractHibernateDAO<T, ID extends Serializable> implement
 	/**
      * Use this inside subclasses as a convenience method.
      */
-    @SuppressWarnings("unchecked")
     protected List<T> findByCriteria(Predicate... predicates) {
         HibernateCriteriaBuilder builder = getSession().getCriteriaBuilder();
         JpaCriteriaQuery<T> query = builder.createQuery(getPersistentClass());
