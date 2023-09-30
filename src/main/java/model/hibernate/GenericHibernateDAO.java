@@ -48,15 +48,15 @@ public abstract class GenericHibernateDAO<T, ID extends Serializable> implements
 	}
 
 	public T loadById(ID id) {
-		return (T) getSession().load(getPersistentClass(), id);
+		return (T) getSession().getReference(getPersistentClass(), id);
 	}
 
 	public void save(T entity) {
-		getSession().save(entity);
+		getSession().persist(entity);
 	}
 
 	public void update(T entity) {
-		getSession().update(entity);
+		getSession().merge(entity);
 	}
 
 	public void saveOrUpdate(T entity) {
@@ -64,11 +64,11 @@ public abstract class GenericHibernateDAO<T, ID extends Serializable> implements
 	}
 
 	public void delete(T entity) {
-		getSession().delete(entity);
+		getSession().remove(entity);
 	}
 
 	public void deleteById(ID id) {
-		getSession().delete(loadById(id));
+		getSession().remove(loadById(id));
 	}
 
 	public Collection<T> findAll() {

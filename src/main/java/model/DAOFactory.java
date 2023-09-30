@@ -18,9 +18,9 @@ public abstract class DAOFactory {
     /**
      * Factory method for instantiation of concrete factories.
      */
-    public static DAOFactory instance(Class factory) {
+    public static DAOFactory instance(Class<?> factory) {
         try {
-            return (DAOFactory)factory.newInstance();
+            return (DAOFactory)factory.getDeclaredConstructor().newInstance();
         } catch (Exception ex) {
             throw new RuntimeException("Couldn't create DAOFactory: " + factory);
         }
