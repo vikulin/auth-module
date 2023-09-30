@@ -59,10 +59,6 @@ public abstract class GenericHibernateDAO<T, ID extends Serializable> implements
 		getSession().merge(entity);
 	}
 
-	public void saveOrUpdate(T entity) {
-		getSession().saveOrUpdate(entity);
-	}
-
 	public void delete(T entity) {
 		getSession().remove(entity);
 	}
