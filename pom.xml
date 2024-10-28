@@ -8,7 +8,7 @@
 	<packaging>war</packaging>
 	<properties>
 		<zk.version>9.6.0.2-jakarta</zk.version>
-		<springsecurity.version>6.1.4</springsecurity.version>
+		<springsecurity.version>6.2.7</springsecurity.version>
 		<hibernate-version>6.3.0.Final</hibernate-version>
 		<java.version>17</java.version>
 		<maven.compiler.source>17</maven.compiler.source>
